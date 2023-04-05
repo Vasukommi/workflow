@@ -1,0 +1,8 @@
+.wf-header-section{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 50px;
+    padding-right: 50px;
+    height: 10vh;
+}
