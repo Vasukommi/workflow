@@ -5,4 +5,9 @@
     padding-left: 50px;
     padding-right: 50px;
     height: 10vh;
+    box-sizing: border-box;
+}
+
+.header-logo{
+    margin-left: 10px;
 }

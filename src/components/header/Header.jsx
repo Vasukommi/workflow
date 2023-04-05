@@ -20,7 +20,7 @@ function Header() {
     <Menubar
       className='wf-header-section'
       model={items}
-      start={<img alt="Logo" src="https://ccmweb.blob.core.windows.net/ccm/workflow-high-resolution-logo-color-on-transparent-background.png" height="14" />}
+      start={<img className='header-logo' alt="Logo" src="https://ccmweb.blob.core.windows.net/ccm/workflow-high-resolution-logo-color-on-transparent-background.png" height="14" />}
     />
   );
 }
