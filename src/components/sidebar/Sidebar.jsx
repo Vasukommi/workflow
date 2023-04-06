@@ -35,7 +35,7 @@ const Sidebar = () => {
                             <div className='integration-section'>
                                 <h1 className='sidebar-section-heading'>Import</h1>
                                 <div className='integration-dragable-section'>
-                                    <div className="integration-dragable" onDragStart={(event) => onDragStart(event, 'input')} draggable>
+                                    <div className="integration-dragable" onDragStart={(event) => onDragStart(event, 'import')} draggable>
                                         <BiImport />
                                         Import file
                                     </div>

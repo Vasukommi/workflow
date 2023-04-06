@@ -8,11 +8,15 @@ import ReactFlow, {
     addEdge,
     ReactFlowProvider
 } from 'reactflow';
+import CustomerImport from '../customs/import/CustomImport';
 import 'reactflow/dist/style.css';
-import useStore from '../../app/store.js';
+import "./Canvas.css";
 
 let id = 0;
 const getId = () => `dndnode_${id++}`;
+const nodeTypes = {
+    import: CustomerImport,
+}
 
 function Flow() {
     const reactFlowWrapper = useRef(null);
@@ -34,6 +38,7 @@ function Flow() {
     const onDrop = useCallback(
         (event) => {
             event.preventDefault();
+            debugger
             const reactFlowBounds = reactFlowWrapper.current.getBoundingClientRect();
             const type = event.dataTransfer.getData('application/reactflow');
             if (typeof type === 'undefined' || !type) {
@@ -44,35 +49,42 @@ function Flow() {
                 x: event.clientX - reactFlowBounds.left,
                 y: event.clientY - reactFlowBounds.top,
             });
-            let newNode = {
-                id: getId(),
-                type: 'input',
-                data: { label: `${type}` },
-                position,
-                type: 'Filter',
-                style: { color: 'black', minHeight: '30px' },
+            if (type.includes('import')) {
+                let newNode = {
+                    id: getId(),
+                    type: 'import',
+                    data: { label: `${type}` },
+                    position,
+                }
+                setNodes((nds) => nds.concat(newNode));
             }
-            setNodes((nds) => nds.concat(newNode));
         },
         [reactFlowInstance]
     );
 
     return (
-        <ReactFlowProvider>
-            <ReactFlow
-                defaultNodes={nodes}
-                defaultEdges={edges}
-                onDrop={onDrop}
-                onDragOver={onDragOver}
-                onConnect={onConnect}
-                onNodesChange={onNodesChange}
-                onEdgesChange={onEdgesChange}
-                fitView>
-                <MiniMap nodeStrokeWidth={3} zoomable pannable />
-                <Controls />
-                <Background color="#ccc" variant={variant} />
-            </ReactFlow>
-        </ReactFlowProvider>
+        <div className='reactflow-wrapper-section'>
+            <ReactFlowProvider>
+                <div ref={reactFlowWrapper} className='reactflow-wrapper-section'>
+                    <ReactFlow
+                        nodes={nodes}
+                        edges={edges}
+                        onDrop={onDrop}
+                        onDragOver={onDragOver}
+                        onConnect={onConnect}
+                        onInit={setReactFlowInstance}
+                        onNodesChange={onNodesChange}
+                        onEdgesChange={onEdgesChange}
+                        snapGrid={[15, 15]}
+                        nodeTypes={nodeTypes}
+                        fitView>
+                        <MiniMap nodeStrokeWidth={3} zoomable pannable />
+                        <Controls />
+                        <Background color="#ccc" variant={variant} />
+                    </ReactFlow>
+                </div>
+            </ReactFlowProvider>
+        </div>
     );
 }
 

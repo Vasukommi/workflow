@@ -12,7 +12,7 @@
 }
 
 .sidebar.closed {
-    width: 4vw;
+    width: 3vw;
     height: 90vh;
 }
 
@@ -36,7 +36,7 @@
     border: 1px solid #636363;
     border-radius: 0.25rem;
     background-color: #f5f5f5;
-    cursor: move;
+    cursor: move !important;
     user-select: none;
     margin-bottom: 0.5rem;
 }

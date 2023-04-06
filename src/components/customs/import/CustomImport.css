@@ -1,0 +1,46 @@
+.custom-import-node-container {
+    color: #fff;
+    background-color: #248BE3;
+    padding: 4px;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.custom-import-node {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.custom-node-icons {
+    border: 1.2px solid rgb(255, 255, 255);
+    border-radius: 100px;
+    padding: 4px;
+    height: 20px;
+    width: 20px;
+    margin: 4px;
+}
+
+.custom-node-title {
+    font-size: 8px;
+}
+
+.custom-node-tooltip {
+    font-size: 12px !important;
+    margin-top: 10px;
+}
+
+.configure-node-icon {
+    height: 12px;
+    width: 12px;
+    background: #6230A3;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 10px;
+    margin-right: 6px;
+    color: #fff !important;
+    border: 1.2px solid rgb(255, 255, 255);
+    ;
+}
