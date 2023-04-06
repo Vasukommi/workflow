@@ -8,17 +8,19 @@ import ReactFlow, {
     addEdge,
     ReactFlowProvider
 } from 'reactflow';
-import CustomerImport from '../customs/import/CustomImport';
+import CustomImport from '../customs/import/CustomImport';
+import CustomPrintavo from '../customs/printavo/Printavo';
 import 'reactflow/dist/style.css';
 import "./Canvas.css";
 
 let id = 0;
 const getId = () => `dndnode_${id++}`;
 const nodeTypes = {
-    import: CustomerImport,
+    printavo: CustomPrintavo,
+    import: CustomImport,
 }
 
-function Flow() {
+function Flow({ triggerPopup, popupDetails }) {
     const reactFlowWrapper = useRef(null);
     const [variant, setVariant] = useState('cross');
     const [nodes, setNodes, onNodesChange] = useNodesState([]);
@@ -35,10 +37,13 @@ function Flow() {
         event.dataTransfer.dropEffect = 'move';
     }, []);
 
+    const onNodeDoubleClick = (event, node) => {
+        triggerPopup(node)
+    }
+
     const onDrop = useCallback(
         (event) => {
             event.preventDefault();
-            debugger
             const reactFlowBounds = reactFlowWrapper.current.getBoundingClientRect();
             const type = event.dataTransfer.getData('application/reactflow');
             if (typeof type === 'undefined' || !type) {
@@ -49,7 +54,15 @@ function Flow() {
                 x: event.clientX - reactFlowBounds.left,
                 y: event.clientY - reactFlowBounds.top,
             });
-            if (type.includes('import')) {
+            if (type.includes('printavo')) {
+                let newNode = {
+                    id: getId(),
+                    type: 'printavo',
+                    data: { label: `${type}` },
+                    position,
+                }
+                setNodes((nds) => nds.concat(newNode));
+            } else if (type.includes('import')) {
                 let newNode = {
                     id: getId(),
                     type: 'import',
@@ -75,6 +88,7 @@ function Flow() {
                         onInit={setReactFlowInstance}
                         onNodesChange={onNodesChange}
                         onEdgesChange={onEdgesChange}
+                        onNodeDoubleClick={onNodeDoubleClick}
                         snapGrid={[15, 15]}
                         nodeTypes={nodeTypes}
                         fitView>

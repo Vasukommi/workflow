@@ -33,8 +33,12 @@ const Sidebar = () => {
                     <div className='sidebar-canvas-options'>
                         <aside>
                             <div className='integration-section'>
-                                <h1 className='sidebar-section-heading'>Import</h1>
+                                <h1 className='sidebar-section-heading'>Integrations</h1>
                                 <div className='integration-dragable-section'>
+                                    <div className="integration-dragable" onDragStart={(event) => onDragStart(event, 'printavo')} draggable>
+                                        <AiFillApi />
+                                        Printavo
+                                    </div>
                                     <div className="integration-dragable" onDragStart={(event) => onDragStart(event, 'import')} draggable>
                                         <BiImport />
                                         Import file
