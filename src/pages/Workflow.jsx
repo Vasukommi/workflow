@@ -1,9 +1,10 @@
-import Header from "../components/header/Header"
-import Sidebar from "../components/sidebar/Sidebar"
-import Flow from "../components/canvas/Canvas"
+import React from "react";
+import Header from "../components/header/Header.jsx"
+import Sidebar from "../components/sidebar/Sidebar.jsx"
+import Flow from "../components/canvas/Canvas.jsx"
 import "./Workflow.css";
 import { useState } from "react";
-import Popup from "../components/popup/Popup";
+import Popup from "../components/popup/Popup.jsx";
 
 const Workflow = () => {
     const [showPopup, setShowPopup] = useState(false);

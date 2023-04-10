@@ -35,11 +35,11 @@ const Sidebar = () => {
                             <div className='integration-section'>
                                 <h1 className='sidebar-section-heading'>Integrations</h1>
                                 <div className='integration-dragable-section'>
-                                    <div className="integration-dragable" onDragStart={(event) => onDragStart(event, 'printavo')} draggable>
+                                    <div className="integration-dragable" onDragStart={(event) => onDragStart(event, 'Printavo')} draggable>
                                         <AiFillApi />
                                         Printavo
                                     </div>
-                                    <div className="integration-dragable" onDragStart={(event) => onDragStart(event, 'import')} draggable>
+                                    <div className="integration-dragable" onDragStart={(event) => onDragStart(event, 'Import')} draggable>
                                         <BiImport />
                                         Import file
                                     </div>

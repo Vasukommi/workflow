@@ -45,3 +45,18 @@
     border: 1.2px solid rgb(255, 255, 255);
     ;
 }
+
+.connected-node-icon {
+    height: 12px;
+    width: 12px;
+    background: #00b950;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 10px;
+    margin-right: 6px;
+    color: #fff !important;
+    border: 1.2px solid rgb(255, 255, 255);
+}
+  

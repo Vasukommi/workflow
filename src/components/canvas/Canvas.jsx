@@ -8,19 +8,19 @@ import ReactFlow, {
     addEdge,
     ReactFlowProvider
 } from 'reactflow';
-import CustomImport from '../customs/import/CustomImport';
-import CustomPrintavo from '../customs/printavo/Printavo';
+import CustomImport from '../customs/import/CustomImport.jsx';
+import CustomPrintavo from '../customs/printavo/Printavo.jsx';
 import 'reactflow/dist/style.css';
 import "./Canvas.css";
 
 let id = 0;
 const getId = () => `dndnode_${id++}`;
 const nodeTypes = {
-    printavo: CustomPrintavo,
+    Printavo: CustomPrintavo,
     import: CustomImport,
 }
 
-function Flow({ triggerPopup, popupDetails }) {
+function Flow({ triggerPopup }) {
     const reactFlowWrapper = useRef(null);
     const [variant, setVariant] = useState('cross');
     const [nodes, setNodes, onNodesChange] = useNodesState([]);
@@ -54,10 +54,10 @@ function Flow({ triggerPopup, popupDetails }) {
                 x: event.clientX - reactFlowBounds.left,
                 y: event.clientY - reactFlowBounds.top,
             });
-            if (type.includes('printavo')) {
+            if (type.includes('Printavo')) {
                 let newNode = {
                     id: getId(),
-                    type: 'printavo',
+                    type: 'Printavo',
                     data: { label: `${type}` },
                     position,
                 }
