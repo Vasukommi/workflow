@@ -17,7 +17,6 @@ const Workflow = () => {
     }
 
     const activateTriggers = () => {
-        debugger
         setTriggers(!showTriggers)
     }
 

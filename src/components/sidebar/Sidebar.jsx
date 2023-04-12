@@ -11,7 +11,6 @@ import Trigger from './triggers/Triggers.jsx';
 import "./Sidebar.css";
 
 const Sidebar = ({ triggers, triggerToggle }) => {
-    debugger
     const [isOpen, setIsOpen] = useState(true);
 
     const handleSidebar = () => {
