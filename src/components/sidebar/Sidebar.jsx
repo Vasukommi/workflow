@@ -6,16 +6,21 @@ import { AiFillApi } from 'react-icons/ai';
 import { RiMailSendFill } from 'react-icons/ri';
 import { IoCloudDownloadSharp, IoBarChart } from 'react-icons/io5';
 import { FaFilter, FaSortAmountDownAlt } from 'react-icons/fa';
-
+import Trigger from './triggers/Triggers.jsx';
 
 import "./Sidebar.css";
 
-const Sidebar = () => {
+const Sidebar = ({ triggers, triggerToggle }) => {
+    debugger
     const [isOpen, setIsOpen] = useState(true);
 
     const handleSidebar = () => {
         setIsOpen(!isOpen);
     };
+
+    const setTriggerStatus = () => {
+        triggerToggle()
+    }
 
     const onDragStart = (event, nodeType) => {
         event.dataTransfer.setData('application/reactflow', nodeType);
@@ -24,10 +29,10 @@ const Sidebar = () => {
 
     return (
         <>
-            <div className={isOpen ? 'sidebar open' : 'sidebar closed'}>
+            {!triggers && <div className={isOpen ? 'sidebar open' : 'sidebar closed'}>
                 <div className="header">
-                    {isOpen && <BsFillArrowLeftSquareFill size={30} onClick={handleSidebar} style={{ color: '#6230A3', cursor: 'pointer' }} />}
-                    {!isOpen && <BsFillArrowRightSquareFill size={30} onClick={handleSidebar} style={{ color: '#6230A3', cursor: 'pointer' }} />}
+                    {isOpen && <BsFillArrowLeftSquareFill size={30} onClick={handleSidebar} style={{ color: '#6230A3', cursor: 'pointer', alignSelf: 'flex-end' }} />}
+                    {!isOpen && <BsFillArrowRightSquareFill size={30} onClick={handleSidebar} style={{ color: '#6230A3', cursor: 'pointer', alignSelf: 'flex-end' }} />}
                 </div>
                 {isOpen && <div className="content">
                     <div className='sidebar-canvas-options'>
@@ -82,7 +87,8 @@ const Sidebar = () => {
                         </aside>
                     </div>
                 </div>}
-            </div>
+            </div>}
+            {triggers && <Trigger setTriggerStatus={setTriggerStatus} />}
         </>
     );
 };

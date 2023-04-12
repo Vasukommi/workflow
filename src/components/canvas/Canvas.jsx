@@ -10,6 +10,7 @@ import ReactFlow, {
 } from 'reactflow';
 import CustomImport from '../customs/import/CustomImport.jsx';
 import CustomPrintavo from '../customs/printavo/Printavo.jsx';
+import CustomPrintavoOrdersInput from '../customs/printavo/input/Orders.jsx';
 import 'reactflow/dist/style.css';
 import "./Canvas.css";
 
@@ -18,9 +19,10 @@ const getId = () => `dndnode_${id++}`;
 const nodeTypes = {
     Printavo: CustomPrintavo,
     import: CustomImport,
+    InputOrders: CustomPrintavoOrdersInput
 }
 
-function Flow({ triggerPopup }) {
+function Flow({ triggerPopup, activateTriggers }) {
     const reactFlowWrapper = useRef(null);
     const [variant, setVariant] = useState('cross');
     const [nodes, setNodes, onNodesChange] = useNodesState([]);
@@ -39,6 +41,10 @@ function Flow({ triggerPopup }) {
 
     const onNodeDoubleClick = (event, node) => {
         triggerPopup(node)
+    }
+
+    const onNodeClick = () => {
+        activateTriggers()
     }
 
     const onDrop = useCallback(
@@ -70,6 +76,14 @@ function Flow({ triggerPopup }) {
                     position,
                 }
                 setNodes((nds) => nds.concat(newNode));
+            } else if (type.includes('InputOrders')) {
+                let newNode = {
+                    id: getId(),
+                    type: 'InputOrders',
+                    data: { label: `${type}` },
+                    position,
+                }
+                setNodes((nds) => nds.concat(newNode));
             }
         },
         [reactFlowInstance]
@@ -89,6 +103,7 @@ function Flow({ triggerPopup }) {
                         onNodesChange={onNodesChange}
                         onEdgesChange={onEdgesChange}
                         onNodeDoubleClick={onNodeDoubleClick}
+                        onNodeClick={onNodeClick}
                         snapGrid={[15, 15]}
                         nodeTypes={nodeTypes}
                         fitView>
