@@ -1,6 +1,7 @@
 import { create } from "zustand";
 
 const useStore = create((set) => ({
+    IsPrintavoConnected: false,
     Nodes: [
         {
             id: '1',
@@ -11,7 +12,8 @@ const useStore = create((set) => ({
     ],
     edges: [
         { id: 'e2-3', source: '2', target: '3', animated: true },
-    ]
+    ],
+    updatePrintavoConnection: (isConnected) => set((state) => ({ IsPrintavoConnected: isConnected }))
 }));
 
 

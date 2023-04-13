@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Handle } from 'reactflow';
+import useStore from '../../../app/store';
 import { AiTwotoneTool, AiFillApi } from 'react-icons/ai';
 import { BsFillCheckCircleFill } from 'react-icons/bs';
 import { Tooltip } from 'primereact/tooltip';
@@ -14,8 +15,9 @@ const handleMode = {
 }
 
 const CustomPrintavo = ({ data }) => {
-    const [showEdge, setShowEdge] = useState(true);
-    const [isConnected, setConnected] = useState(true);
+    console.log('CustomPrintavo', useState(useStore((state) => state.IsPrintavoConnected)))
+    const [showEdge, setShowEdge] = useState(useStore((state) => state.IsPrintavoConnected));
+    const [isConnected, setConnected] = useState(useStore((state) => state.IsPrintavoConnected));
     return (
         <div className='custom-import-node-container'>
             {showEdge && <Handle style={handleMode} type="target" position="left" className='handle-input' />}

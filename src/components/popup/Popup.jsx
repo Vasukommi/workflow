@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
+import { Dropdown } from 'primereact/dropdown';
 import AuthorizePrintavo from 'printavo/AuthorizePrintavo';
 import InputOrders from 'printavo/OrdersPrintavo';
+import useStore from "../../app/store";
 
 import "./Popup.css";
 
@@ -17,9 +19,16 @@ const IntegrationConfigs = {
 }
 
 const Popup = ({ popupDetails, showPopup, visible }) => {
-
+    const updatePrintavoConnection = useStore((state) => state.updatePrintavoConnection)
     const togglePopup = () => {
         showPopup()
+    }
+
+    const onLogin = (isConnected) => {
+        if (isConnected) {
+            console.log('isConnected', isConnected)
+            updatePrintavoConnection(isConnected)
+        }
     }
 
     const footerContent = (
@@ -37,7 +46,7 @@ const Popup = ({ popupDetails, showPopup, visible }) => {
         <div className="card flex justify-content-center">
             <Dialog visible={visible} style={{ width: '94vw', height: '90vh' }} closable={false} header={footerContent}>
                 <div className="popup-content-container">
-                    {ComponetToRender && <ComponetToRender />}
+                    {ComponetToRender && <ComponetToRender onLogin={onLogin} />}
                 </div>
             </Dialog>
         </div>
