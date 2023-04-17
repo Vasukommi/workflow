@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef } from 'react';
+import React, { useState, useCallback, useRef, Panel } from 'react';
 import ReactFlow, {
     Background,
     Controls,
@@ -11,18 +11,23 @@ import ReactFlow, {
 import CustomImport from '../customs/import/CustomImport.jsx';
 import CustomPrintavo from '../customs/printavo/Printavo.jsx';
 import CustomPrintavoOrdersInput from '../customs/printavo/input/Orders.jsx';
+import CustomPrintavoOrdersOutput from '../customs/printavo/output/Orders.jsx';
 import 'reactflow/dist/style.css';
 import "./Canvas.css";
+import useStore from "../../app/store.js";
 
 let id = 0;
-const getId = () => `dndnode_${id++}`;
+const getId = (type) => `dndnode_${type}_${id++}`;
 const nodeTypes = {
     Printavo: CustomPrintavo,
     import: CustomImport,
-    InputOrders: CustomPrintavoOrdersInput
+    InputOrders: CustomPrintavoOrdersInput,
+    OutputOrders: CustomPrintavoOrdersOutput
 }
 
 function Flow({ triggerPopup, activateTriggers }) {
+    const isConnected = useStore((state) => state.isConnected);
+    const addEdges = useStore((state) => state.addEdge);
     const reactFlowWrapper = useRef(null);
     const [variant, setVariant] = useState('cross');
     const [nodes, setNodes, onNodesChange] = useNodesState([]);
@@ -32,6 +37,7 @@ function Flow({ triggerPopup, activateTriggers }) {
     const onConnect = useCallback((params) => {
         const newEdges = addEdge(params, edges);
         setEdges(newEdges);
+        addEdges(newEdges)
     }, [edges]);
 
     const onDragOver = useCallback((event) => {
@@ -62,7 +68,7 @@ function Flow({ triggerPopup, activateTriggers }) {
             });
             if (type.includes('Printavo')) {
                 let newNode = {
-                    id: getId(),
+                    id: getId(type),
                     type: 'Printavo',
                     data: { label: `${type}` },
                     position,
@@ -70,7 +76,7 @@ function Flow({ triggerPopup, activateTriggers }) {
                 setNodes((nds) => nds.concat(newNode));
             } else if (type.includes('import')) {
                 let newNode = {
-                    id: getId(),
+                    id: getId(type),
                     type: 'import',
                     data: { label: `${type}` },
                     position,
@@ -78,8 +84,16 @@ function Flow({ triggerPopup, activateTriggers }) {
                 setNodes((nds) => nds.concat(newNode));
             } else if (type.includes('InputOrders')) {
                 let newNode = {
-                    id: getId(),
+                    id: getId(type),
                     type: 'InputOrders',
+                    data: { label: `${type}` },
+                    position,
+                }
+                setNodes((nds) => nds.concat(newNode));
+            } else if (type.includes('OutputOrders')) {
+                let newNode = {
+                    id: getId(type),
+                    type: 'OutputOrders',
                     data: { label: `${type}` },
                     position,
                 }

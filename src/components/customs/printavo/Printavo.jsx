@@ -15,9 +15,8 @@ const handleMode = {
 }
 
 const CustomPrintavo = ({ data }) => {
-    console.log('CustomPrintavo', useState(useStore((state) => state.IsPrintavoConnected)))
-    const [showEdge, setShowEdge] = useState(useStore((state) => state.IsPrintavoConnected));
-    const [isConnected, setConnected] = useState(useStore((state) => state.IsPrintavoConnected));
+    const [showEdge, setShowEdge] = useState(true);
+    const [isConnected, setConnected] = useState(true);
     return (
         <div className='custom-import-node-container'>
             {showEdge && <Handle style={handleMode} type="target" position="left" className='handle-input' />}

@@ -68,7 +68,7 @@ const Trigger = ({ setTriggerStatus }) => {
                                 </div>
                                 <h1 className='sidebar-section-heading'>Connect Options SC</h1>
                                 <div className='integration-dragable-section'>
-                                    <div className="integration-dragable-trigers" onDragStart={(event) => onDragStart(event, 'Printavo')} draggable>
+                                    <div className="integration-dragable-trigers" onDragStart={(event) => onDragStart(event, 'OutputOrders')} draggable>
                                         <div className='integration-dragable-icons-trigers'>
                                             <TbTruckDelivery style={{ marginRight: '4px' }} />
                                             Orders

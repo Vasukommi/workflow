@@ -2,18 +2,21 @@ import { create } from "zustand";
 
 const useStore = create((set) => ({
     IsPrintavoConnected: false,
-    Nodes: [
-        {
-            id: '1',
-            type: 'input',
-            data: { label: 'Input Node' },
-            position: { x: 250, y: 25 },
-        },
-    ],
-    edges: [
-        { id: 'e2-3', source: '2', target: '3', animated: true },
-    ],
-    updatePrintavoConnection: (isConnected) => set((state) => ({ IsPrintavoConnected: isConnected }))
+    nodes: [],
+    edges: [],
+    updatePrintavoConnection: (isConnected) => set((state) => ({ IsPrintavoConnected: isConnected })),
+    addNode: (nodeObject) => set((state) => {
+        const nodeIndex = state.nodes.findIndex((node) => node.id === nodeObject.id);
+        if (nodeIndex !== -1) {
+            const updateNodes = [...state.nodes];
+            updateNodes[nodeIndex] = nodeObject;
+            return { nodes: updateNodes };
+        } else {
+            const newNodes = [...state.nodes, nodeObject];
+            return { nodes: newNodes }
+        }
+    }),
+    addEdge: (edgesArray) => set((state) => ({ edges: edgesArray }))
 }));
 
 
